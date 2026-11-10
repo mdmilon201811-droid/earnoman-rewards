@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EarnOman Rewards</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#101827;
+ color:white;
+ padding:20px;
+}
+header{text-align:center;padding:20px}
+header h1{color:#39d98a}
+.card{
+ background:#1d293b;
+ padding:20px;
+ border-radius:16px;
+ margin:15px 0;
+}
+.balance{
+ font-size:32px;
+ color:#39d98a;
+ font-weight:bold;
+}
+button{
+ background:#25bd79;
+ color:white;
+ border:0;
+ padding:13px 20px;
+ border-radius:10px;
+ font-weight:bold;
+ cursor:pointer;
+}
+.task{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+}
+small{color:#aab6c8}
+</style>
+</head>
+<body>
+<header>
+<h1>EarnOman Rewards</h1>
+<p>Complete tasks and collect points</p>
+</header>
+
+<div class="card">
+<h3>Your Demo Balance</h3>
+<div class="balance"><span id="points">0</span> Points</div>
+<small>Demo points only. No cash value.</small>
+</div>
+
+<div class="card">
+<h2>Daily Tasks</h2>
+
+<div class="task">
+<div>
+<h3>Welcome Task</h3>
+<small>Earn 10 demo points</small>
+</div>
+<button onclick="claim(10,this)">Claim</button>
+</div>
+<hr>
+
+<div class="task">
+<div>
+<h3>Daily Check-in</h3>
+<small>Earn 5 demo points</small>
+</div>
+<button onclick="claim(5,this)">Claim</button>
+</div>
+<hr>
+
+<div class="task">
+<div>
+<h3>Explore App</h3>
+<small>Earn 15 demo points</small>
+</div>
+<button onclick="claim(15,this)">Claim</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Referral Program</h2>
+<p>Invite friends and grow together!</p>
+<p>Your demo referral code: EARN2026</p>
+</div>
+
+<div class="card">
+<h2>About</h2>
+<p>EarnOman Rewards is a rewards app prototype.</p>
+<p>More features coming soon.</p>
+</div>
+
+<script>
+let points=0;
+function claim(amount,button){
+ if(button.disabled)return;
+ points+=amount;
+ document.getElementById("points").innerText=points;
+ button.innerText="Claimed";
+ button.disabled=true;
+ button.style.background="#64748b";
+}
+</script>
+</body>
+</html>
