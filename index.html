@@ -1,113 +1,209 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EarnOman Rewards</title>
 <style>
 *{box-sizing:border-box}
 body{
  margin:0;
  font-family:Arial,sans-serif;
- background:#101827;
+ background:#0b1220;
  color:white;
- padding:20px;
 }
-header{text-align:center;padding:20px}
-header h1{color:#39d98a}
+header{
+ padding:25px 20px;
+ background:linear-gradient(135deg,#087f5b,#16a36b);
+ border-radius:0 0 25px 25px;
+}
+.logo{font-size:25px;font-weight:bold}
+.logo span{color:#b7ffda}
+header p{color:#d6ffeb}
+.container{padding:16px;max-width:600px;margin:auto}
 .card{
- background:#1d293b;
+ background:#192538;
  padding:20px;
- border-radius:16px;
- margin:15px 0;
+ border-radius:18px;
+ margin-bottom:16px;
+ border:1px solid #26364d;
 }
 .balance{
- font-size:32px;
- color:#39d98a;
- font-weight:bold;
+ background:linear-gradient(135deg,#087f5b,#075e48);
 }
-button{
- background:#25bd79;
- color:white;
- border:0;
- padding:13px 20px;
- border-radius:10px;
- font-weight:bold;
- cursor:pointer;
+.balance small{color:#d1fae5}
+.amount{font-size:36px;font-weight:bold;margin:12px 0}
+.stats{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
 }
+.stat{
+ background:#223249;
+ padding:15px;
+ border-radius:14px;
+}
+.stat h2{color:#39d98a;margin:8px 0}
+h2{font-size:19px}
 .task{
  display:flex;
  justify-content:space-between;
  align-items:center;
  gap:10px;
+ padding:12px 0;
+ border-bottom:1px solid #344256;
 }
-small{color:#aab6c8}
+.task:last-child{border:0}
+.task p{color:#aebbd0;font-size:13px}
+button{
+ border:0;
+ background:#20b879;
+ color:white;
+ padding:11px 16px;
+ border-radius:10px;
+ font-weight:bold;
+ cursor:pointer;
+}
+button:disabled{background:#64748b}
+.refcode{
+ background:#26364d;
+ padding:14px;
+ border-radius:10px;
+ text-align:center;
+ font-size:20px;
+ font-weight:bold;
+ letter-spacing:2px;
+}
+.note{color:#aebbd0;font-size:12px}
+footer{
+ text-align:center;
+ padding:20px;
+ color:#8292a8;
+ font-size:12px;
+}
 </style>
 </head>
 <body>
+
 <header>
-<h1>EarnOman Rewards</h1>
-<p>Complete tasks and collect points</p>
+ <div class="logo">Earn<span>Oman</span> Rewards</div>
+ <p>Complete tasks. Collect points. Enjoy rewards!</p>
 </header>
 
-<div class="card">
-<h3>Your Demo Balance</h3>
-<div class="balance"><span id="points">0</span> Points</div>
-<small>Demo points only. No cash value.</small>
-</div>
+<main class="container">
 
-<div class="card">
-<h2>Daily Tasks</h2>
+ <div class="card balance">
+  <small>YOUR DEMO BALANCE</small>
+  <div class="amount"><span id="points">0</span> Points</div>
+  <small>Keep completing tasks to collect points!</small>
+ </div>
 
-<div class="task">
-<div>
-<h3>Welcome Task</h3>
-<small>Earn 10 demo points</small>
-</div>
-<button onclick="claim(10,this)">Claim</button>
-</div>
-<hr>
+ <div class="stats">
+  <div class="stat">
+   <small>Completed Tasks</small>
+   <h2 id="completed">0</h2>
+  </div>
+  <div class="stat">
+   <small>Referral Code</small>
+   <h2>EARN2026</h2>
+  </div>
+ </div>
 
-<div class="task">
-<div>
-<h3>Daily Check-in</h3>
-<small>Earn 5 demo points</small>
-</div>
-<button onclick="claim(5,this)">Claim</button>
-</div>
-<hr>
+ <div class="card">
+  <h2>🎯 Daily Tasks</h2>
 
-<div class="task">
-<div>
-<h3>Explore App</h3>
-<small>Earn 15 demo points</small>
-</div>
-<button onclick="claim(15,this)">Claim</button>
-</div>
-</div>
+  <div class="task">
+   <div>
+    <strong>Welcome Task</strong>
+    <p>Welcome to EarnOman Rewards</p>
+    <small>+10 Points</small>
+   </div>
+   <button onclick="claim('welcome',10,this)">Claim</button>
+  </div>
 
-<div class="card">
-<h2>Referral Program</h2>
-<p>Invite friends and grow together!</p>
-<p>Your demo referral code: EARN2026</p>
-</div>
+  <div class="task">
+   <div>
+    <strong>Daily Check-in</strong>
+    <p>Visit the app every day</p>
+    <small>+5 Points</small>
+   </div>
+   <button onclick="claim('daily',5,this)">Claim</button>
+  </div>
 
-<div class="card">
-<h2>About</h2>
-<p>EarnOman Rewards is a rewards app prototype.</p>
-<p>More features coming soon.</p>
-</div>
+  <div class="task">
+   <div>
+    <strong>Explore App</strong>
+    <p>Explore EarnOman Rewards</p>
+    <small>+15 Points</small>
+   </div>
+   <button onclick="claim('explore',15,this)">Claim</button>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>👥 Referral Program</h2>
+  <p>Invite your friends to join our rewards community!</p>
+  <div class="refcode">EARN2026</div>
+  <br>
+  <button style="width:100%" onclick="shareCode()">
+   Share Referral Code
+  </button>
+ </div>
+
+ <div class="card">
+  <h2>💡 About EarnOman</h2>
+  <p>EarnOman Rewards is an international rewards app prototype.</p>
+  <p class="note">Demo points have no cash value. Real rewards, payments and withdrawals are not yet available.</p>
+ </div>
+
+</main>
+
+<footer>
+ © 2026 EarnOman Rewards. All rights reserved.
+</footer>
 
 <script>
-let points=0;
-function claim(amount,button){
- if(button.disabled)return;
- points+=amount;
+let points=Number(localStorage.getItem("earnPoints")||0);
+let completed=JSON.parse(localStorage.getItem("earnTasks")||"[]");
+
+function update(){
  document.getElementById("points").innerText=points;
- button.innerText="Claimed";
- button.disabled=true;
- button.style.background="#64748b";
+ document.getElementById("completed").innerText=completed.length;
+ document.querySelectorAll("button[onclick^='claim']").forEach(btn=>{
+  let id=btn.getAttribute("onclick").match(/claim\('([^']+)'/)[1];
+  if(completed.includes(id)){
+   btn.innerText="Claimed";
+   btn.disabled=true;
+  }
+ });
 }
+
+function claim(id,amount,button){
+ if(completed.includes(id))return;
+ completed.push(id);
+ points+=amount;
+ localStorage.setItem("earnPoints",points);
+ localStorage.setItem("earnTasks",JSON.stringify(completed));
+ update();
+}
+
+function shareCode(){
+ if(navigator.share){
+  navigator.share({
+   title:"EarnOman Rewards",
+   text:"Join EarnOman Rewards! My referral code is EARN2026"
+  });
+ }else{
+  navigator.clipboard.writeText("EARN2026").then(()=>{
+   alert("Referral code copied!");
+  }).catch(()=>{
+   alert("Your referral code: EARN2026");
+  });
+ }
+}
+
+update();
 </script>
 </body>
 </html>
