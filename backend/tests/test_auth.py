@@ -40,3 +40,20 @@ def test_registration_login_and_protected_profile():
 
         bad_login = client.post("/auth/login", json={"email": email, "password": "wrong-password"})
         assert bad_login.status_code == 401
+
+
+def test_production_rejects_sqlite_database():
+    import os
+    import subprocess
+    import sys
+    from pathlib import Path
+    env = os.environ.copy()
+    env.update({
+        "APP_ENV": "production",
+        "JWT_SECRET_KEY": "production-test-secret-long-enough-123456789",
+        "DATABASE_URL": "sqlite:///./must-not-start.db",
+    })
+    backend_dir = Path(__file__).resolve().parents[1]
+    result = subprocess.run([sys.executable, "-c", "import app.main"], cwd=backend_dir, env=env, capture_output=True, text=True)
+    assert result.returncode != 0
+    assert "Production requires managed PostgreSQL" in result.stderr
