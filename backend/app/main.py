@@ -5,6 +5,7 @@ password reset, rate limiting, monitoring and legal notices before public launch
 """
 import os
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Generator
 
 import jwt
@@ -42,7 +43,8 @@ password_hash = PasswordHash.recommended()
 bearer = HTTPBearer(auto_error=False)
 app = FastAPI(title=f"{os.getenv('APP_NAME', 'EarnWorld Rewards')} Auth API", version="0.1.0")
 
-app.mount("/account", StaticFiles(directory="app/static", html=True), name="account")
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+app.mount("/account", StaticFiles(directory=str(STATIC_DIR), html=True), name="account")
 
 class RegisterInput(BaseModel):
     email: EmailStr
