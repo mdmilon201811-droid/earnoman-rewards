@@ -16,7 +16,7 @@ from app.main import app
 
 def test_registration_login_and_protected_profile():
     with TestClient(app) as client:
-        email = "regression@example.test"
+        email = "ci-test@gmail.com"
         password = "test-password-1234"
 
         registered = client.post("/auth/register", json={"email": email, "password": password})
