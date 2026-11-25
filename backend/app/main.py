@@ -9,6 +9,7 @@ from typing import Generator
 
 import jwt
 from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.staticfiles import StaticFiles
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, EmailStr, Field
 from pwdlib import PasswordHash
@@ -40,6 +41,8 @@ Base.metadata.create_all(bind=engine)
 password_hash = PasswordHash.recommended()
 bearer = HTTPBearer(auto_error=False)
 app = FastAPI(title=f"{os.getenv('APP_NAME', 'EarnWorld Rewards')} Auth API", version="0.1.0")
+
+app.mount("/account", StaticFiles(directory="app/static", html=True), name="account")
 
 class RegisterInput(BaseModel):
     email: EmailStr
