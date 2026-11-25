@@ -1,0 +1,1 @@
+"""EarnWorld Rewards authentication backend."""
