@@ -1,5 +1,9 @@
 """Basic API regression test. Uses disposable CI database and test-only credentials."""
 import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 os.environ["APP_ENV"] = "test"
 os.environ["JWT_SECRET_KEY"] = "test-only-secret-key-which-is-long-enough-123456"
