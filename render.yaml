@@ -1,3 +1,8 @@
+databases:
+  - name: earnworld-rewards-db
+    databaseName: earnworld_rewards
+    plan: free
+
 services:
   - type: web
     name: earnworld-rewards
@@ -9,10 +14,12 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_NAME
-        value: EarnWorld Rewards
+        value: earnworld-rewards
       - key: ACCESS_TOKEN_MINUTES
         value: "30"
       - key: JWT_SECRET_KEY
-        sync: false
+        generateValue: true
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: earnworld-rewards-db
+          property: connectionString
