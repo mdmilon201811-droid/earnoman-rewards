@@ -1,0 +1,25 @@
+databases:
+  - name: earnworld-rewards-db
+    databaseName: earnworld_rewards
+    plan: free
+
+services:
+  - type: web
+    name: earnworld-rewards
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_NAME
+        value: earnworld-rewards
+      - key: ACCESS_TOKEN_MINUTES
+        value: "30"
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: earnworld-rewards-db
+          property: connectionString
