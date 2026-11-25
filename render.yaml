@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: earnworld-rewards
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_NAME
+        value: EarnWorld Rewards
+      - key: ACCESS_TOKEN_MINUTES
+        value: "30"
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
