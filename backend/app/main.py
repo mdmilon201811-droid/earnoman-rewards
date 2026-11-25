@@ -24,7 +24,13 @@ if APP_ENV == "production" and (len(SECRET) < 32 or SECRET.startswith("CHANGE-ME
 if not SECRET:
     SECRET = "local-development-only-secret-change-before-deploy-000000"
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./app.db")
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {})
+if APP_ENV == "production" and not DATABASE_URL.startswith(("postgresql://", "postgresql+psycopg://")):
+    raise RuntimeError("Production requires managed PostgreSQL via DATABASE_URL; SQLite is development-only.")
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {},
+    pool_pre_ping=True,
+)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 class Base(DeclarativeBase):
